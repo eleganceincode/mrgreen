@@ -1,0 +1,656 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>mr. Green — ландшафтный дизайн</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: #1a1e1b; /* тёмный серо-зелёный фон */
+      color: #ffffff;
+      overflow-x: hidden;
+    }
+
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 24px;
+    }
+
+    /* Хедер */
+    header {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      z-index: 100;
+      padding: 20px 0;
+      transition: background 0.3s ease, backdrop-filter 0.3s ease;
+      background: transparent;
+    }
+    header.scrolled {
+      background: rgba(255, 255, 255, 0.7);
+      backdrop-filter: blur(12px);
+    }
+    .header-content {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 24px;
+    }
+    .logo {
+      font-family: 'Playfair Display', serif;
+      font-size: 2rem;
+      font-weight: 700;
+      color: #ffffff;
+      transition: color 0.3s ease;
+      text-decoration: none;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    header.scrolled .logo {
+      color: #2d332b;
+    }
+    .logo i {
+      font-size: 1.8rem;
+    }
+    .nav-links {
+      display: flex;
+      gap: 36px;
+    }
+    .nav-links a {
+      text-decoration: none;
+      color: rgba(255,255,255,0.9);
+      font-weight: 500;
+      transition: color 0.3s;
+    }
+    header.scrolled .nav-links a {
+      color: #2d332b;
+    }
+    .nav-links a:hover {
+      color: #8ba888;
+    }
+
+    /* Секции */
+    section {
+      padding: 100px 0;
+      position: relative;
+    }
+
+    /* Hero с видео */
+    .hero {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      overflow: hidden;
+      padding-top: 80px; 
+    }
+    
+    .hero video {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      z-index: 0;
+    }
+    
+    .hero-overlay {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0,0,0,0.25);
+      z-index: 1;
+    }
+    
+    .hero-content {
+      position: relative;
+      z-index: 2;
+      text-align: center;
+      padding: 0 20px;
+    }
+
+    .hero h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: 4.5rem;
+      font-weight: 700;
+      color: #ffffff;
+      line-height: 1.2;
+      margin-bottom: 20px;
+    }
+    .hero p {
+      font-size: 1.3rem;
+      color: rgba(255,255,255,0.9);
+      max-width: 600px;
+      margin: 0 auto 30px;
+    }
+    .btn {
+      display: inline-block;
+      background: transparent;
+      border: 1px solid rgba(255,255,255,0.6);
+      color: #fff;
+      padding: 14px 36px;
+      border-radius: 50px;
+      font-weight: 600;
+      text-decoration: none;
+      backdrop-filter: blur(4px);
+      transition: all 0.3s;
+    }
+    .btn:hover {
+      background: rgba(255,255,255,0.15);
+      border-color: #fff;
+    }
+
+    /* Философия */
+    .philosophy {
+      background: #1e2320;
+      text-align: center;
+      padding: 100px 0;
+    }
+    .philosophy q {
+      font-family: 'Playfair Display', serif;
+      font-size: 2.8rem;
+      font-style: italic;
+      display: block;
+      margin-bottom: 20px;
+    }
+
+    /* Услуги */
+    .services-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 30px;
+      margin-top: 60px;
+    }
+    .service-card {
+      background: rgba(255,255,255,0.05);
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 24px;
+      padding: 40px 24px;
+      text-align: center;
+      transition: transform 0.3s, border-color 0.3s;
+    }
+    .service-card:hover {
+      transform: translateY(-8px);
+      border-color: rgba(255,255,255,0.25);
+    }
+    .service-icon {
+      font-size: 2.5rem;
+      color: #a3c09b;
+      margin-bottom: 20px;
+    }
+
+    /* Работы — блоки с анимацией при скролле */
+    .works {
+      background: #151a16;
+    }
+    .work-block {
+      display: flex;
+      align-items: center;
+      gap: 80px;
+      margin-bottom: 120px;
+      opacity: 0;
+      transition: opacity 0.8s ease, transform 0.8s ease;
+    }
+    .work-block.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    .work-block:nth-child(odd) {
+      flex-direction: row;
+      transform: translateX(-60px);
+    }
+    .work-block:nth-child(even) {
+      flex-direction: row-reverse;
+      transform: translateX(60px);
+    }
+    .work-block.visible:nth-child(odd),
+    .work-block.visible:nth-child(even) {
+      transform: translateX(0);
+    }
+    .work-img {
+      flex: 0 0 58%;           
+      min-height: 520px;        
+      background-size: cover;
+      background-position: center;
+      border-radius: 0;         
+      box-shadow: none;       
+      border: none;
+    }
+    .work-text {
+      flex: 1;
+      padding: 0;
+    }
+    .work-text h3 {
+      font-family: 'Playfair Display', serif;
+      font-size: 2.2rem;
+      margin-bottom: 16px;
+    }
+    .work-text p {
+      color: #b0bcae;
+      line-height: 1.7;
+    }
+
+    /* Адаптив для мобильных */
+    @media (max-width: 768px) {
+      .work-block {
+        flex-direction: column;
+        gap: 30px;
+        transform: translateY(40px) !important;
+      }
+      .work-block.visible {
+        transform: translateY(0) !important;
+      }
+      .work-img {
+        min-height: 350px;
+        width: 100%;
+        flex: none;
+      }
+    }
+
+    /* Заголовок услуг */
+    .services-main-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 2.8rem;
+      text-align: center;
+      margin-bottom: 60px;
+      color: #ffffff;
+      font-weight: 600;
+      letter-spacing: -0.01em;
+    }
+    
+    /* Сетка шагов */
+    .services-steps {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 40px;
+      margin-bottom: 60px;
+    }
+    
+    /* Карточка шага */
+    .step-item {
+      text-align: center;
+    }
+    
+    /* Изображение (или иконка) */
+    .step-img {
+      width: 100%;
+      height: 200px;
+      background-size: cover;
+      background-position: center;
+      box-shadow: none;
+      border: none;
+    }
+    
+    /* Заголовок шага */
+    .step-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.4rem;
+      font-weight: 600;
+      margin-bottom: 8px;
+      color: #ffffff;
+    }
+    
+    /* Описание */
+    .step-desc {
+      font-size: 0.9rem;
+      color: #b0bcae;
+      line-height: 1.5;
+      max-width: 280px;
+      margin: 0 auto;
+    }
+    
+    /* Ссылка "Подробнее об услугах" */
+    .services-more {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 1rem;
+      font-weight: 500;
+      color: #a3c09b;
+      text-decoration: none;
+      border-bottom: 1px solid transparent;
+      transition: border-color 0.2s, color 0.2s;
+      margin: 0 auto;
+      width: fit-content;
+      float: right;
+    }
+    
+    .services-more:hover {
+      border-color: #8ba888;
+      color: #ffffff;
+    }
+    
+    .services-more i {
+      font-size: 0.9rem;
+      transition: transform 0.2s;
+    }
+    
+    .services-more:hover i {
+      transform: translateX(4px);
+    }
+    
+    /* Адаптив */
+    @media (max-width: 900px) {
+      .services-steps {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 40px 30px;
+      }
+      .services-main-title {
+        font-size: 2.2rem;
+      }
+    }
+    
+    @media (max-width: 600px) {
+      .services-steps {
+        grid-template-columns: 1fr;
+        gap: 40px;
+      }
+      .step-img {
+        height: 180px;
+      }
+    }
+
+    /* Секция контактов */
+    .contact {
+      background: #1e2320;
+      padding: 100px 0;
+    }
+    .contact-grid {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: center;
+      gap: 40px;
+    }
+    .contact-left {
+      flex: 1;
+      min-width: 250px;
+    }
+    .contact-subtitle {
+      font-size: 1.35rem;   
+      color: #b0bcae;
+      margin-bottom: 32px;
+      max-width: 400px;
+      line-height: 1.6;
+    }
+    .contact-phone {
+      font-size: 1.6rem;    
+      font-weight: 600;
+      color: #ffffff;
+      text-decoration: none;
+      display: block;
+      margin-bottom: 12px;
+    }
+    .telegram-link {
+      font-size: 1.2rem;
+      color: #a3c09b;
+      text-decoration: none;
+      display: inline-block;
+      border-bottom: 1px solid rgba(163, 192, 155, 0.5);
+      transition: border-color 0.2s;
+    }
+    .telegram-link:hover {
+      border-color: #8ba888;
+    }
+    .contact-right {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-end;
+    }
+    .contact-icon {
+      font-size: 4rem;
+      opacity: 0.15;
+      margin-bottom: 16px;
+    }
+    .contact-discuss-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 1rem;
+      font-weight: 500;
+      color: #a3c09b;
+      text-decoration: none;
+      border-bottom: 1px solid transparent;
+      transition: border-color 0.2s, color 0.2s;
+    }
+    .contact-discuss-link:hover {
+      border-color: #8ba888;
+      color: #ffffff;
+    }
+    .contact-discuss-link i {
+      font-size: 0.9rem;
+      transition: transform 0.2s;
+    }
+    .contact-discuss-link:hover i {
+      transform: translateX(4px);
+    }
+
+    /* Футер */
+    .footer {
+      background: #151a16;
+      padding: 28px 0;
+      border-top: 1px solid rgba(255, 255, 255, 0.08);
+    }
+    
+    .footer-inner {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 16px;
+    }
+    
+    .footer-copy {
+      color: #b0bcae;
+      font-size: 0.95rem;
+      margin: 0;
+      font-weight: 400;
+      letter-spacing: 0.02em;
+    }
+    
+    .footer-top {
+      color: #b0bcae;
+      text-decoration: none;
+      font-size: 1.2rem;
+      transition: color 0.3s ease;
+      display: inline-block;
+      line-height: 1;
+    }
+    
+    .footer-top:hover {
+      color: #ffffff;
+    }
+  </style>
+</head>
+<body>
+
+<header id="mainHeader">
+  <div class="header-content">
+    <a href="#" class="logo">
+      <i class="fas fa-leaf"></i> mr. Green
+    </a>
+    <nav class="nav-links">
+      <a href="#about">О нас</a>
+      <a href="#services">Услуги</a>
+      <a href="#works">Работы</a>
+      <a href="#contact">Контакты</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+  <!-- Hero -->
+  <section class="hero">
+    <video autoplay muted loop playsinline id="bgVideo">
+  <source src="garden.mp4" type="video/mp4">
+</video>
+    <div class="hero-overlay"></div>
+    <div class="hero-content">
+      <h1>Ландшафт, созданный по законам эстетики</h1>
+      <p>Мы создаём уникальные и гармоничные пространства для жизни</p>
+      <a href="https://t.me/mrgreenchatt" target="_blank" class="btn">
+        <i class="fab fa-telegram-plane"></i> Наш канал
+      </a>
+    </div>
+  </section>
+
+  <!-- Философия -->
+  <section class="philosophy" id="about">
+    <div class="container">
+      <q>Сад — это душа дома.</q>
+      <p style="margin-top: 16px; color: #b0bcae;">Каждый проект мы начинаем с любви к природе и внимания к вашему стилю жизни.</p>
+    </div>
+  </section>
+
+  <!-- Услуги -->
+  <section id="services">
+    <div class="container">
+      <h2 class="services-main-title">От замысла до воплощения самых смелых желаний</h2>
+      <div class="services-steps">
+        <!-- Шаг 1 -->
+        <div class="step-item">
+          <div class="step-img" style="background-image: url('icon-prepare.jpg');"></div>
+          <h3 class="step-title">Предпроектная подготовка</h3>
+          <p class="step-desc">Выезд специалистов на объект, сбор информации, составление   технического задания.</p>
+        </div>
+        <!-- Шаг 2 -->
+        <div class="step-item">
+          <div class="step-img" style="background-image: url('icon-design.jpg');"></div>
+          <h3 class="step-title">Проектирование</h3>
+          <p class="step-desc">Разработка художественной концепции и рабочее проектирование.</p >
+        </div>
+        <!-- Шаг 3 -->
+        <div class="step-item">
+          <div class="step-img" style="background-image: url('icon-building.jpg');"></div>
+          <h3 class="step-title">Благоустройство и озеленение</h3>
+          <p class="step-desc">Реализация проекта, авторский и технический надзор.</p>
+        </div>
+        <!-- Шаг 4 -->
+        <div class="step-item">
+          <div class="step-img" style="background-image: url('icon-service.jpg');"></div>
+          <h3 class="step-title">Сервисное обслуживание</h3>
+          <p class="step-desc">Комплексный круглогодичный уход за садом.</p>
+        </div>
+      </div>
+      <!-- Ссылка на страницу услуг -->
+      <a href="services.html" class="services-more">
+        Подробнее об услугах <i class="fas fa-arrow-right"></i>
+      </a>
+    </div>
+  </section>
+
+  <!-- Работы (с анимацией появления при скролле) -->
+  <section class="works" id="works">
+    <div class="container">
+      <h2 style="text-align:center; font-family:'Playfair Display'; font-size:2rem; margin-bottom:80px;">Наши сады — это не просто растения. Это инженерная поэзия, где каждая линия рождена мыслью, а каждый уголок дарит счастье. Мы создаём пространства с характером и историей, которая длится всю жизнь.</h2>
+      <div class="work-block">
+        <div class="work-img" style="background-image: url('yard.jpg');"></div>
+        <div class="work-text">
+          <h3>Уютный сад</h3>
+          <p>Сочетание многолетников и натурального камня — идеальное место для отдыха.</p>
+        </div>
+      </div>
+
+      <div class="work-block">
+        <div class="work-img" style="background-image: url('pond.jpg');"></div>
+        <div class="work-text">
+          <h3>Современный пруд</h3>
+          <p>Зеркальная гладь воды в окружении хвойных растений.</p>
+        </div>
+      </div>
+
+      <div class="work-block">
+        <div class="work-img" style="background-image: url('terrace.jpg');"></div>
+        <div class="work-text">
+          <h3>Терраса с растениями</h3>
+          <p>Пространство для вечерних встреч с друзьями.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Контакты -->
+  <section class="contact" id="contact">
+    <div class="container contact-grid">
+      <div class="contact-left">
+        <p class="contact-subtitle">Мы слышим каждое ваше желание и переводим его на язык сада.</p>
+        <a href="tel:+79011111107" class="contact-phone">+7 (901) 111-11-07</a>
+        <a href="https://t.me/mrgreenchatt" target="_blank" class="telegram-link">
+          <i class="fab fa-telegram-plane"></i> @mrgreenchatt
+        </a>
+      </div>
+      <div class="contact-right">
+        <div class="contact-icon"></div>
+        <a href="https://t.me/mrgreenchatt" class="contact-discuss-link">
+          Обсудить проект <i class="fas fa-arrow-right"></i>
+        </a>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer class="footer">
+  <div class="container footer-inner">
+    <p class="footer-copy">© 2020 mr. Green. Ландшафтная архитектура по законам эстетики</p>
+    <a href="#" class="footer-top" aria-label="Наверх">
+      <i class="fas fa-arrow-up"></i>
+    </a>
+  </div>
+</footer>
+
+<script>
+  // Изменение хедера при скролле
+  const header = document.getElementById('mainHeader');
+  window.addEventListener('scroll', () => {
+    if (window.scrollY > 50) {
+      header.classList.add('scrolled');
+    } else {
+      header.classList.remove('scrolled');
+    }
+  });
+
+  // Анимация блоков работ
+  const workBlocks = document.querySelectorAll('.work-block');
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+      }
+    });
+  }, { threshold: 0.2 });
+
+  workBlocks.forEach(block => observer.observe(block));
+
+  // Плавная прокрутка для якорей
+  document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+    anchor.addEventListener('click', function(e) {
+      e.preventDefault();
+      const href = this.getAttribute('href');
+      if (href === '#') {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      } else {
+        const target = document.querySelector(href);
+        if (target) target.scrollIntoView({ behavior: 'smooth' });
+      }
+    });
+  });
+</script>
+</body>
+</html>
