@@ -39,6 +39,9 @@
       background: rgba(255, 255, 255, 0.7);
       backdrop-filter: blur(12px);
     }
+    header.scrolled .logo-icon {
+      filter: invert(1) sepia(0.17) saturate(0.6) hue-rotate(35deg) brightness(0.25);
+    }
     .header-content {
       display: flex;
       justify-content: space-between;
@@ -543,7 +546,7 @@
       }
     }
 
-    /* ✅ ИСПРАВЛЕННАЯ МОБИЛЬНАЯ ВЁРСТКА РАБОТ */
+    /*МОБИЛЬНАЯ ВЁРСТКА РАБОТ */
     @media (max-width: 768px) {
       /* Общий контейнер секции — убираем лишние отступы */
       .works .container {
@@ -714,7 +717,7 @@
 <header id="mainHeader">
   <div class="header-content">
     <a href="#" class="logo">
-      <i class="fas fa-leaf"></i> mr. Green
+      <img src="logo.png" alt="Логотип" class="logo-icon"> mr. Green
     </a>
     
     <button class="burger" id="burger" aria-label="Открыть меню">
@@ -725,14 +728,14 @@
 
     <nav class="mobile-nav" id="mobileMenu">
       <a href="#about">О нас</a>
-      <a href="#services">Услуги</a>
+      <a href="/uslugi">Услуги</a>
       <a href="#works">Работы</a>
       <a href="#contact">Контакты</a>
     </nav>
 
     <nav class="nav-links">
       <a href="#about">О нас</a>
-      <a href="#services">Услуги</a>
+      <a href="/uslugi">Услуги</a>
       <a href="#works">Работы</a>
       <a href="#contact">Контакты</a>
     </nav>
@@ -767,26 +770,26 @@
       <div class="services-steps">
         <div class="step-item">
           <div class="step-img" style="background-image: url('icon-prepare.jpg');"></div>
-          <h3 class="step-title">Предпроектная подготовка</h3>
-          <p class="step-desc">Выезд специалистов на объект, сбор информации, составление технического задания.</p>
+          <h3 class="step-title">Проектирование</h3>
+          <p class="step-desc">Дизайн-проект участка, план освещения, рабочая документация.</p>
         </div>
         <div class="step-item">
           <div class="step-img" style="background-image: url('icon-design.jpg');"></div>
-          <h3 class="step-title">Проектирование</h3>
-          <p class="step-desc">Разработка художественной концепции и рабочее проектирование.</p>
+          <h3 class="step-title">Благоустройство</h3>
+          <p class="step-desc">Устройство газонов, мощение дорожек, монтаж автополива «под ключ».</p>
         </div>
         <div class="step-item">
           <div class="step-img" style="background-image: url('icon-building.jpg');"></div>
-          <h3 class="step-title">Благоустройство и озеленение</h3>
-          <p class="step-desc">Реализация проекта, авторский и технический надзор.</p>
+          <h3 class="step-title">Озеленение</h3>
+          <p class="step-desc">Продажа и посадка растений, озеленение веранд, террас, фитодизайн.</p>
         </div>
         <div class="step-item">
           <div class="step-img" style="background-image: url('icon-service.jpg');"></div>
-          <h3 class="step-title">Сервисное обслуживание</h3>
-          <p class="step-desc">Комплексный круглогодичный уход за садом.</p>
+          <h3 class="step-title">Обслуживание</h3>
+          <p class="step-desc">Сезонный уход: стрижка, обрезка, подкормки, консервация систем.</p>
         </div>
       </div>
-      <a href="services.html" class="services-more">
+      <a href="/uslugi" class="services-more">
         Подробнее об услугах <i class="fas fa-arrow-right"></i>
       </a>
     </div>

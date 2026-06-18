@@ -1,0 +1,665 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Услуги — mr. Green ландшафтный дизайн</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: #1a1e1b;
+      color: #ffffff;
+      overflow-x: hidden;
+    }
+
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 24px;
+    }
+
+    /* Хедер */
+    header {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      z-index: 100;
+      padding: 20px 0;
+      transition: background 0.3s ease, backdrop-filter 0.3s ease;
+      background: transparent;
+    }
+    header.scrolled {
+      background: rgba(255, 255, 255, 0.7);
+      backdrop-filter: blur(12px);
+    }
+    header.scrolled .logo {
+      color: #2d332b;
+    }
+    header.scrolled .logo img {
+      filter: invert(1) sepia(0.17) saturate(0.6) hue-rotate(35deg) brightness(0.25);
+    }
+    .header-content {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 24px;
+    }
+    .logo {
+      font-family: 'Playfair Display', serif;
+      font-size: 2rem;
+      font-weight: 700;
+      color: #ffffff;
+      transition: color 0.3s ease;
+      text-decoration: none;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .logo img {
+      height: 40px;
+    }
+    .nav-links {
+      display: flex;
+      gap: 36px;
+    }
+    .nav-links a {
+      text-decoration: none;
+      color: rgba(255,255,255,0.9);
+      font-weight: 500;
+      transition: color 0.3s;
+    }
+    header.scrolled .nav-links a {
+      color: #2d332b;
+    }
+    .nav-links a:hover,
+    .nav-links a.active {
+      color: #8ba888;
+    }
+
+    /* Бургер */
+    .burger {
+      display: none;
+      flex-direction: column;
+      justify-content: center;
+      gap: 6px;
+      background: none;
+      border: none;
+      cursor: pointer;
+      z-index: 200;
+      padding: 8px;
+    }
+    .burger span {
+      display: block;
+      width: 28px;
+      height: 2px;
+      background: #fff;
+      border-radius: 2px;
+      transition: all 0.3s ease;
+    }
+    header.scrolled .burger span {
+      background: #2d332b;
+    }
+    .mobile-nav {
+      position: fixed;
+      top: 0;
+      right: 0;
+      width: 280px;
+      height: 100vh;
+      background: rgba(26, 30, 27, 0.95);
+      backdrop-filter: blur(20px);
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      gap: 32px;
+      padding: 60px 40px;
+      transform: translateX(100%);
+      transition: transform 0.3s ease;
+      z-index: 150;
+    }
+    .mobile-nav.open {
+      transform: translateX(0);
+    }
+    .mobile-nav a {
+      text-decoration: none;
+      color: #ffffff;
+      font-size: 1.5rem;
+      font-weight: 500;
+      border-bottom: 1px solid rgba(255,255,255,0.1);
+      padding-bottom: 12px;
+    }
+    .burger.open span:nth-child(1) {
+      transform: translateY(8px) rotate(45deg);
+    }
+    .burger.open span:nth-child(2) {
+      opacity: 0;
+    }
+    .burger.open span:nth-child(3) {
+      transform: translateY(-8px) rotate(-45deg);
+    }
+
+    .services-banner h1 .banner-sub {
+      display: block;
+      font-size: 1.3rem;
+      font-weight: 400;
+      margin-top: 16px;
+      font-family: 'Inter', sans-serif;
+      opacity: 0.85;
+    }
+    
+    @media (max-width: 768px) {
+      .services-banner h1 .banner-sub {
+        font-size: 1rem;
+      }
+    }
+
+    /* Секции */
+    section {
+      padding: 100px 0;
+      position: relative;
+    }
+
+    /* Баннер услуг */
+    .services-banner {
+      margin-top: 80px;
+      height: 420px;
+      background-size: cover;
+      background-position: center;
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+    }
+    .services-banner::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0,0,0,0.4);
+    }
+    .services-banner h1 {
+      position: relative;
+      z-index: 2;
+      font-family: 'Playfair Display', serif;
+      font-size: 3rem;
+      font-weight: 700;
+      color: #fff;
+      max-width: 800px;
+      padding: 0 24px;
+    }
+
+    /* Блоки услуг — как на главной */
+    .service-block {
+      display: flex;
+      align-items: center;
+      gap: 80px;
+      margin-bottom: 120px;
+    }
+    .service-block:nth-child(even) {
+      flex-direction: row-reverse;
+    }
+    .service-img {
+      flex: 0 0 55%;
+      min-height: 450px;
+      background-size: cover;
+      background-position: center;
+    }
+    .service-text {
+      flex: 1;
+    }
+    .service-text h2 {
+      font-family: 'Playfair Display', serif;
+      font-size: 2.4rem;
+      margin-bottom: 16px;
+    }
+    .service-text .subtitle {
+      font-size: 1.15rem;
+      color: #b0bcae;
+      margin-bottom: 32px;
+      line-height: 1.6;
+    }
+    .service-text ul {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 18px;
+    }
+    .service-text li {
+      display: flex;
+      gap: 14px;
+      align-items: flex-start;
+      font-size: 1rem;
+      line-height: 1.5;
+    }
+    .service-text li i {
+      color: #a3c09b;
+      font-size: 1.1rem;
+      margin-top: 3px;
+      flex-shrink: 0;
+    }
+
+    /* Контакты */
+    .contact {
+      background: #1e2320;
+      padding: 100px 0;
+    }
+    .contact-grid {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: center;
+      gap: 40px;
+    }
+    .contact-left {
+      flex: 1;
+      min-width: 250px;
+    }
+    .contact-subtitle {
+      font-size: 1.35rem;
+      color: #b0bcae;
+      margin-bottom: 32px;
+      max-width: 400px;
+      line-height: 1.6;
+    }
+    .contact-phone {
+      font-size: 1.6rem;
+      font-weight: 600;
+      color: #ffffff;
+      text-decoration: none;
+      display: block;
+      margin-bottom: 12px;
+    }
+    .telegram-link {
+      font-size: 1.2rem;
+      color: #a3c09b;
+      text-decoration: none;
+      display: inline-block;
+      border-bottom: 1px solid rgba(163, 192, 155, 0.5);
+      transition: border-color 0.2s;
+    }
+    .telegram-link:hover {
+      border-color: #8ba888;
+    }
+    .contact-right {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-end;
+    }
+    .contact-icon {
+      font-size: 4rem;
+      opacity: 0.15;
+      margin-bottom: 16px;
+    }
+    .contact-discuss-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 1rem;
+      font-weight: 500;
+      color: #a3c09b;
+      text-decoration: none;
+      border-bottom: 1px solid transparent;
+      transition: border-color 0.2s, color 0.2s;
+    }
+    .contact-discuss-link:hover {
+      border-color: #8ba888;
+      color: #ffffff;
+    }
+    .contact-discuss-link i {
+      font-size: 0.9rem;
+      transition: transform 0.2s;
+    }
+    .contact-discuss-link:hover i {
+      transform: translateX(4px);
+    }
+
+    /* Футер */
+    .footer {
+      background: #151a16;
+      padding: 28px 0;
+      border-top: 1px solid rgba(255, 255, 255, 0.08);
+    }
+    .footer-inner {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: nowrap;
+      gap: 16px;
+    }
+    .footer-copy {
+      color: #b0bcae;
+      font-size: 0.95rem;
+      margin: 0;
+    }
+    .footer-top {
+      color: #b0bcae;
+      text-decoration: none;
+      font-size: 1.2rem;
+      transition: color 0.3s ease;
+    }
+    .footer-top:hover {
+      color: #ffffff;
+    }
+
+    /* Кнопка музыки */
+    .music-toggle {
+      position: fixed;
+      bottom: 24px;
+      right: 24px;
+      width: 48px;
+      height: 48px;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.15);
+      backdrop-filter: blur(8px);
+      border: 1px solid rgba(255, 255, 255, 0.25);
+      color: #fff;
+      font-size: 1.3rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      z-index: 999;
+      transition: background 0.2s, transform 0.2s;
+    }
+    .music-toggle:hover {
+      background: rgba(255, 255, 255, 0.25);
+      transform: scale(1.1);
+    }
+    .music-toggle.playing {
+      background: rgba(163, 192, 155, 0.3);
+      border-color: rgba(163, 192, 155, 0.6);
+    }
+
+    /* Адаптация */
+    @media (max-width: 768px) {
+      .services-banner {
+        height: 280px;
+      }
+      .services-banner h1 {
+        font-size: 2rem;
+      }
+      .service-block,
+      .service-block:nth-child(even) {
+        flex-direction: column !important;
+        gap: 28px;
+        margin-bottom: 60px;
+      }
+      .service-img {
+        flex: none;
+        width: 100%;
+        min-height: unset;
+        height: 0;
+        padding-bottom: 60%;
+        background-size: cover;
+        background-position: center;
+      }
+      .service-text {
+        flex: none;
+        width: 100%;
+        padding: 0;
+        text-align: center;
+      }
+      .service-text h2 {
+        font-size: 1.8rem;
+      }
+      .service-text li {
+        text-align: left;
+      }
+      .nav-links {
+        display: none;
+      }
+      .burger {
+        display: flex;
+      }
+    }
+    @media (max-width: 400px) {
+      .services-banner h1 {
+        font-size: 1.6rem;
+      }
+      .service-text h2 {
+        font-size: 1.5rem;
+      }
+    }
+  </style>
+</head>
+<body>
+
+<header id="mainHeader">
+  <div class="header-content">
+    <a href="/" class="logo">
+      <img src="/logo.png" alt="Логотип"> mr. Green
+    </a>
+    
+    <button class="burger" id="burger" aria-label="Открыть меню">
+      <span></span>
+      <span></span>
+      <span></span>
+    </button>
+
+    <nav class="mobile-nav" id="mobileMenu">
+      <a href="/">Главная</a>
+      <a href="/uslugi" style="color:#a3c09b;">Услуги</a>
+      <a href="#contact">Контакты</a>
+    </nav>
+
+    <nav class="nav-links">
+      <a href="/">Главная</a>
+      <a href="/uslugi" class="active">Услуги</a>
+      <a href="#contact">Контакты</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+  <!-- Баннер -->
+  <div class="services-banner" style="background-image: url('/services-banner.jpg');">
+     <h1>
+    Придумываем, воплощаем, бережём<br>
+    <span class="banner-sub">- Создаём сады, которыми гордимся вместе с вами</span>
+  </h1>
+  </div>
+
+  <!-- Проектирование -->
+  <section id="proektirovanie">
+    <div class="container">
+      <div class="service-block">
+        <div class="service-img" style="background-image: url('/icon-design.jpg');"></div>
+        <div class="service-text">
+          <h2>Проектирование</h2>
+          <p class="subtitle">Разработка ландшафтного дизайн-проекта, проектирование освещения, рабочая документация. Учитываем все особенности участка и ваши пожелания.</p>
+          <ul>
+            <li><i class="fas fa-check-circle"></i> Выезд специалиста, обмер участка, анализ территории</li>
+            <li><i class="fas fa-check-circle"></i> Создание дизайн-проекта с визуализацией (3D-рендер)</li>
+            <li><i class="fas fa-check-circle"></i> Проектирование наружного освещения: схемы расстановки, подбор светильников</li>
+            <li><i class="fas fa-check-circle"></i> Рабочая документация: дендроплан, разбивочный чертёж, сметы</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Благоустройство -->
+  <section id="blagoustroystvo">
+    <div class="container">
+      <div class="service-block">
+        <div class="service-img" style="background-image: url('/icon-building.jpg');"></div>
+        <div class="service-text">
+          <h2>Благоустройство</h2>
+          <p class="subtitle">Устройство газонов, мощение дорожек, монтаж автополива «под ключ». Превращаем участок в удобное и красивое пространство.</p>
+          <ul>
+            <li><i class="fas fa-check-circle"></i> Укладка рулонного и посевного газона, подготовка основания</li>
+            <li><i class="fas fa-check-circle"></i> Мощение дорожек и площадок: брусчатка, плитка, натуральный камень</li>
+            <li><i class="fas fa-check-circle"></i> Системы автоматического полива: проектирование, монтаж, настройка</li>
+            <li><i class="fas fa-check-circle"></i> Вертикальная планировка, дренаж, ливневая канализация</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Озеленение -->
+  <section id="ozelenenie">
+    <div class="container">
+      <div class="service-block">
+        <div class="service-img" style="background-image: url('/yard.jpg');"></div>
+        <div class="service-text">
+          <h2>Озеленение</h2>
+          <p class="subtitle">Продажа и посадка растений, озеленение веранд и террас, фитодизайн. Подбираем растения, которые будут радовать вас круглый год.</p>
+          <ul>
+            <li><i class="fas fa-check-circle"></i> Посадка деревьев, кустарников, живых изгородей</li>
+            <li><i class="fas fa-check-circle"></i> Создание цветников и миксбордеров из многолетников</li>
+            <li><i class="fas fa-check-circle"></i> Озеленение веранд, террас, балконов (контейнерное озеленение)</li>
+            <li><i class="fas fa-check-circle"></i> Фитодизайн интерьеров и зимних садов</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Обслуживание -->
+  <section id="obsluzhivanie">
+    <div class="container">
+      <div class="service-block">
+        <div class="service-img" style="background-image: url('icon-service.jpg');"></div>
+        <div class="service-text">
+          <h2>Обслуживание</h2>
+          <p class="subtitle">Регулярный уход за садом: стрижка, обрезка, подкормки, консервация систем. Ваш сад всегда в идеальном состоянии.</p>
+          <ul>
+            <li><i class="fas fa-check-circle"></i> Сезонный уход: весенняя и осенняя обрезка, мульчирование</li>
+            <li><i class="fas fa-check-circle"></i> Уход за газоном: стрижка, аэрация, подкормки</li>
+            <li><i class="fas fa-check-circle"></i> Обслуживание систем автополива и освещения, консервация на зиму</li>
+            <li><i class="fas fa-check-circle"></i> Выезд садовника по графику или разовые работы</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Контакты -->
+  <section class="contact" id="contact">
+    <div class="container contact-grid">
+      <div class="contact-left">
+        <p class="contact-subtitle">Мы слышим каждое ваше желание и переводим его на язык сада.</p>
+        <a href="tel:+79011111107" class="contact-phone">+7 (901) 111-11-07</a>
+        <a href="https://t.me/yrVnvVHtJsA2Mjcy" target="_blank" class="telegram-link">
+          <i class="fab fa-telegram-plane"></i> @mrgreenchatt
+        </a>
+      </div>
+      <div class="contact-right">
+        <div class="contact-icon"><i class="fas fa-leaf"></i></div>
+        <a href="https://t.me/mrgreenchatt" class="contact-discuss-link">
+          Обсудить проект <i class="fas fa-arrow-right"></i>
+        </a>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer class="footer">
+  <div class="container footer-inner">
+    <p class="footer-copy">© 2020 mr. Green. Ландшафтная архитектура по законам эстетики</p>
+    <a href="#" class="footer-top" aria-label="Наверх">
+      <i class="fas fa-arrow-up"></i>
+    </a>
+  </div>
+</footer>
+
+<audio id="bgMusic" loop preload="auto">
+  <source src="ambient.mp3" type="audio/mpeg">
+</audio>
+
+<button id="musicControl" class="music-toggle" aria-label="Включить музыку" title="Фоновая музыка">
+  <i class="fas fa-volume-mute"></i>
+</button>
+
+<script>
+  // Скролл хедера
+  var header = document.getElementById('mainHeader');
+  window.addEventListener('scroll', function() {
+    if (window.scrollY > 50) {
+      header.classList.add('scrolled');
+    } else {
+      header.classList.remove('scrolled');
+    }
+  });
+
+  // Бургер-меню
+  var burger = document.getElementById('burger');
+  var mobileMenu = document.getElementById('mobileMenu');
+  burger.addEventListener('click', function() {
+    burger.classList.toggle('open');
+    mobileMenu.classList.toggle('open');
+  });
+  var mobileLinks = document.querySelectorAll('.mobile-nav a');
+  for (var i = 0; i < mobileLinks.length; i++) {
+    mobileLinks[i].addEventListener('click', function() {
+      burger.classList.remove('open');
+      mobileMenu.classList.remove('open');
+    });
+  }
+
+  // Плавный скролл
+  var anchors = document.querySelectorAll('a[href^="#"]');
+  for (var j = 0; j < anchors.length; j++) {
+    anchors[j].addEventListener('click', function(e) {
+      e.preventDefault();
+      var href = this.getAttribute('href');
+      if (href === '#') {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      } else {
+        var target = document.querySelector(href);
+        if (target) target.scrollIntoView({ behavior: 'smooth' });
+      }
+    });
+  }
+
+  // Музыка
+  var bgMusic = document.getElementById('bgMusic');
+  var musicBtn = document.getElementById('musicControl');
+  var musicIcon = musicBtn.querySelector('i');
+
+  function startMusic() {
+    bgMusic.play().then(function() {
+      musicBtn.classList.add('playing');
+      musicIcon.className = 'fas fa-volume-up';
+      musicBtn.setAttribute('aria-label', 'Выключить музыку');
+    }).catch(function() {});
+  }
+
+  window.addEventListener('load', startMusic);
+
+  musicBtn.addEventListener('click', function() {
+    if (bgMusic.paused) {
+      bgMusic.play().then(function() {
+        musicBtn.classList.add('playing');
+        musicIcon.className = 'fas fa-volume-up';
+      });
+    } else {
+      bgMusic.pause();
+      musicBtn.classList.remove('playing');
+      musicIcon.className = 'fas fa-volume-mute';
+    }
+  });
+
+  document.addEventListener('click', function firstInteraction() {
+    if (bgMusic.paused) {
+      bgMusic.play().then(function() {
+        musicBtn.classList.add('playing');
+        musicIcon.className = 'fas fa-volume-up';
+      }).catch(function() {});
+    }
+    document.removeEventListener('click', firstInteraction);
+  }, { once: true });
+</script>
+</body>
+</html>
