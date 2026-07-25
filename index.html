@@ -351,13 +351,57 @@
       max-width: 400px;
       line-height: 1.6;
     }
+    .contact-phones {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      margin-bottom: 16px;
+    }
+    
     .contact-phone {
-      font-size: 1.6rem;
-      font-weight: 600;
-      color: #ffffff;
+      font-size: 1.3rem;
+      color: #e8f0e3;
       text-decoration: none;
-      display: block;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    
+    .contact-phone i {
+      color: #a3c09b;
+      font-size: 1rem;
+    }
+    
+    .contact-phone-secondary {
+      font-size: 1.1rem;
+      opacity: 0.8;
+    }
+    
+    .contact-phone-label {
+      font-size: 0.75rem;
+      color: #8a9a7b;
+      background: #f0f4ed;
+      padding: 2px 8px;
+      border-radius: 10px;
+      margin-left: 4px;
+    }
+    
+    .contact-email {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      color: #a3c09b;
+      text-decoration: none;
+      font-size: 1.05rem;
       margin-bottom: 12px;
+    }
+    
+    .contact-email i {
+      color: #a3c09b;
+    }
+    
+    .contact-email:hover {
+      text-decoration: underline;
     }
     .telegram-link {
       font-size: 1.2rem;
@@ -548,7 +592,6 @@
 
     /*МОБИЛЬНАЯ ВЁРСТКА РАБОТ */
     @media (max-width: 768px) {
-      /* Общий контейнер секции — убираем лишние отступы */
       .works .container {
         padding: 0 12px;
       }
@@ -571,10 +614,10 @@
       }
 
       .work-img {
-        flex: none;                /* Сбрасываем flex: 0 0 58% */
+        flex: none;
         width: 100%;
         height: 0;
-        padding-bottom: 60%;      /* Сохраняем пропорции */
+        padding-bottom: 60%;
         background-size: cover;
         background-position: center;
         min-height: unset;
@@ -582,7 +625,7 @@
       }
 
       .work-text {
-        flex: none;                /* Чтобы не было перекосов */
+        flex: none;
         width: 100%;
         padding: 0 16px;
         box-sizing: border-box;
@@ -729,14 +772,14 @@
     <nav class="mobile-nav" id="mobileMenu">
       <a href="/about">О нас</a>
       <a href="/uslugi">Услуги</a>
-      <a href="#works">Работы</a>
+      <a href="/works">Работы</a>
       <a href="#contact">Контакты</a>
     </nav>
 
     <nav class="nav-links">
       <a href="/about">О нас</a>
       <a href="/uslugi">Услуги</a>
-      <a href="#works">Работы</a>
+      <a href="/works">Работы</a>
       <a href="#contact">Контакты</a>
     </nav>
   </div>
@@ -745,7 +788,7 @@
 <main>
   <section class="hero">
     <video autoplay muted loop playsinline id="bgVideo">
-      <source src="garden.mp4" type="video/mp4">
+      <source src="IMG_6011.mp4" type="video/mp4">
     </video>
     <div class="hero-overlay"></div>
     <div class="hero-content">
@@ -759,7 +802,7 @@
 
   <section class="philosophy" id="about">
     <div class="container">
-      <q>Сад, это душа дома.</q>
+      <q>Сад, это душа дома</q>
       <p style="margin-top: 16px; color: #b0bcae;">Каждый проект мы начинаем с любви к природе и внимания к вашему стилю жизни.</p>
     </div>
   </section>
@@ -769,24 +812,24 @@
       <h2 class="services-main-title">От замысла до воплощения самых смелых желаний</h2>
       <div class="services-steps">
         <div class="step-item">
+          <div class="step-img" style="background-image: url('consultation.jpg');"></div>
+          <h3 class="step-title">Предпроектная подготовка</h3>
+          <p class="step-desc">Выезд специалистов на объект, сбор необходимой информации, составление технического задания</p>
+        </div>
+        <div class="step-item">
           <div class="step-img" style="background-image: url('icon-prepare.jpg');"></div>
           <h3 class="step-title">Проектирование</h3>
-          <p class="step-desc">Дизайн-проект участка, план освещения, рабочая документация.</p>
+          <p class="step-desc">Дизайн-проект участка, план освещения, рабочая документация</p>
         </div>
         <div class="step-item">
-          <div class="step-img" style="background-image: url('icon-design.jpg');"></div>
-          <h3 class="step-title">Благоустройство</h3>
-          <p class="step-desc">Устройство газонов, мощение дорожек, монтаж автополива «под ключ».</p>
-        </div>
-        <div class="step-item">
-          <div class="step-img" style="background-image: url('icon-building.jpg');"></div>
-          <h3 class="step-title">Озеленение</h3>
-          <p class="step-desc">Озеленение загородных домов, дач, террас, фитодизайн, продажа и посадка растений.</p>
+          <div class="step-img" style="background-image: url('icon-landscaping.jpg');"></div>
+          <h3 class="step-title">Благоустройство и озеленение</h3>
+          <p class="step-desc">Озеленение участков, фитодизайн, посадка растений, устройство газонов, мощение дорожек и монтаж автополива под ключ</p>
         </div>
         <div class="step-item">
           <div class="step-img" style="background-image: url('icon-service.jpg');"></div>
           <h3 class="step-title">Обслуживание</h3>
-          <p class="step-desc">Сезонный уход: стрижка, обрезка, подкормки, консервация систем.</p>
+          <p class="step-desc">Сезонный уход: стрижка, обрезка, подкормки, консервация систем</p>
         </div>
       </div>
       <a href="/uslugi" class="services-more">
@@ -824,23 +867,38 @@
     </div>
   </section>
 
-  <section class="contact" id="contact">
-    <div class="container contact-grid">
-      <div class="contact-left">
-        <p class="contact-subtitle">Мы слышим ваши желания и переводим их на язык сада.</p>
-        <a href="tel:+79011111107" class="contact-phone">+7 (901) 111-11-07</a>
-        <a href="https://t.me/yrVnvVHtJsA2Mjcy" target="_blank" class="telegram-link">
-          <i class="fab fa-telegram-plane"></i> @mrgreenchatt
+ <section class="contact" id="contact">
+  <div class="container contact-grid">
+    <div class="contact-left">
+      <p class="contact-subtitle">Мы слышим ваши желания и переводим их на язык сада.</p>
+      
+      <div class="contact-phones">
+        <a href="tel:+79011111107" class="contact-phone">
+          <i class="fas fa-phone"></i> +7 (901) 111-11-07
+        </a>
+        <a href="tel:+79096642117" class="contact-phone contact-phone-secondary">
+          <i class="fas fa-phone"></i> +7 (909) 664-21-17
+          <span class="contact-phone-label">доп</span>
         </a>
       </div>
-      <div class="contact-right">
-        <div class="contact-icon"></div>
-        <a href="https://t.me/mrgreenchatt" class="contact-discuss-link">
-          Обсудить проект <i class="fas fa-arrow-right"></i>
-        </a>
-      </div>
+      
+      <a href="mailto:rammoris1985@gmail.com" class="contact-email">
+        <i class="fas fa-envelope"></i> rammoris1985@gmail.com
+      </a>
+      
+      <a href="https://t.me/yrVnvVHtJsA2Mjcy" target="_blank" class="telegram-link">
+        <i class="fab fa-telegram-plane"></i> @mrgreenchatt
+      </a>
     </div>
-  </section>
+    
+    <div class="contact-right">
+      <div class="contact-icon"></div>
+      <a href="https://t.me/mrgreenchatt" class="contact-discuss-link">
+        Обсудить проект <i class="fas fa-arrow-right"></i>
+      </a>
+    </div>
+  </div>
+</section>
 </main>
 
 <footer class="footer">
@@ -854,7 +912,7 @@
 
 <!-- 🎵 Аудио для фоновой музыки -->
 <audio id="bgMusic" loop preload="auto">
-  <source src="ambient.mp3" type="audio/mpeg">
+  <source src="enemy_of_truth.mp3" type="audio/mpeg">
   <!-- Запасной вариант: <source src="ambient.ogg" type="audio/ogg"> -->
 </audio>
 

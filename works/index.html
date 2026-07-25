@@ -1,0 +1,652 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Работы — mr. Green ландшафтный дизайн</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: #1a1e1b;
+      color: #ffffff;
+      overflow-x: hidden;
+    }
+
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 24px;
+    }
+
+    /* Хедер */
+    header {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      z-index: 100;
+      padding: 20px 0;
+      transition: background 0.3s ease, backdrop-filter 0.3s ease;
+      background: transparent;
+    }
+    header.scrolled {
+      background: rgba(255, 255, 255, 0.7);
+      backdrop-filter: blur(12px);
+    }
+    header.scrolled .logo {
+      color: #2d332b;
+    }
+    header.scrolled .logo img {
+      filter: invert(1) sepia(0.17) saturate(0.6) hue-rotate(35deg) brightness(0.25);
+    }
+    .header-content {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 24px;
+    }
+    .logo {
+      font-family: 'Playfair Display', serif;
+      font-size: 2rem;
+      font-weight: 700;
+      color: #ffffff;
+      transition: color 0.3s ease;
+      text-decoration: none;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .logo img {
+      height: 40px;
+    }
+    .nav-links {
+      display: flex;
+      gap: 36px;
+    }
+    .nav-links a {
+      text-decoration: none;
+      color: rgba(255,255,255,0.9);
+      font-weight: 500;
+      transition: color 0.3s;
+    }
+    header.scrolled .nav-links a {
+      color: #2d332b;
+    }
+    .nav-links a:hover,
+    .nav-links a.active {
+      color: #8ba888;
+    }
+
+    /* Бургер */
+    .burger {
+      display: none;
+      flex-direction: column;
+      justify-content: center;
+      gap: 6px;
+      background: none;
+      border: none;
+      cursor: pointer;
+      z-index: 200;
+      padding: 8px;
+    }
+    .burger span {
+      display: block;
+      width: 28px;
+      height: 2px;
+      background: #fff;
+      border-radius: 2px;
+      transition: all 0.3s ease;
+    }
+    header.scrolled .burger span {
+      background: #2d332b;
+    }
+    .mobile-nav {
+      position: fixed;
+      top: 0;
+      right: 0;
+      width: 280px;
+      height: 100vh;
+      background: rgba(26, 30, 27, 0.95);
+      backdrop-filter: blur(20px);
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      gap: 32px;
+      padding: 60px 40px;
+      transform: translateX(100%);
+      transition: transform 0.3s ease;
+      z-index: 150;
+    }
+    .mobile-nav.open {
+      transform: translateX(0);
+    }
+    .mobile-nav a {
+      text-decoration: none;
+      color: #ffffff;
+      font-size: 1.5rem;
+      font-weight: 500;
+      border-bottom: 1px solid rgba(255,255,255,0.1);
+      padding-bottom: 12px;
+    }
+    .burger.open span:nth-child(1) {
+      transform: translateY(8px) rotate(45deg);
+    }
+    .burger.open span:nth-child(2) {
+      opacity: 0;
+    }
+    .burger.open span:nth-child(3) {
+      transform: translateY(-8px) rotate(-45deg);
+    }
+
+    /* Секции */
+    section {
+      padding: 100px 0;
+      position: relative;
+    }
+
+    /* Баннер */
+    .works-banner {
+      margin-top: 80px;
+      height: 350px;
+      background-size: cover;
+      background-position: center;
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+    }
+    .works-banner::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0,0,0,0.4);
+    }
+    .works-banner h1 {
+      position: relative;
+      z-index: 2;
+      font-family: 'Playfair Display', serif;
+      font-size: 3rem;
+      font-weight: 700;
+      color: #fff;
+      max-width: 800px;
+      padding: 0 24px;
+    }
+
+    /* === ГАЛЕРЕЯ === */
+    .gallery {
+      padding-top: 60px;
+      padding-bottom: 80px;
+    }
+
+    .gallery-masonry {
+      column-count: 3;
+      column-gap: 20px;
+    }
+
+    .gallery-item {
+      break-inside: avoid;
+      margin-bottom: 20px;
+      border-radius: 6px;
+      overflow: hidden;
+      background-color: #2a2f2a;
+      opacity: 0;
+      transform: translateY(30px);
+      transition: opacity 0.6s ease, transform 0.6s ease;
+      position: relative;
+      cursor: pointer;
+    }
+
+    .gallery-item.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .gallery-item img {
+      display: block;
+      width: 100%;
+      height: auto;
+      transition: transform 0.5s ease, filter 0.5s ease;
+    }
+
+    .gallery-item:hover img {
+      transform: scale(1.05);
+      filter: brightness(0.7);
+    }
+
+    /* === ЛАЙТБОКС === */
+    .lightbox {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.9);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 1000;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.3s ease;
+    }
+
+    .lightbox.active {
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    .lightbox-img {
+      max-width: 90%;
+      max-height: 85vh;
+      object-fit: contain;
+      border-radius: 8px;
+      box-shadow: 0 20px 40px rgba(0,0,0,0.6);
+    }
+
+    .lightbox-close {
+      position: absolute;
+      top: 20px;
+      right: 30px;
+      font-size: 2.5rem;
+      color: #ffffff;
+      cursor: pointer;
+      transition: transform 0.2s, opacity 0.2s;
+      z-index: 1001;
+    }
+
+    .lightbox-close:hover {
+      transform: scale(1.2);
+      opacity: 0.8;
+    }
+
+    /* Контакты */
+    .contact {
+      background: #1e2320;
+      padding: 100px 0;
+    }
+    .contact-grid {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: center;
+      gap: 40px;
+    }
+    .contact-left {
+      flex: 1;
+      min-width: 250px;
+    }
+    .contact-subtitle {
+      font-size: 1.35rem;
+      color: #b0bcae;
+      margin-bottom: 32px;
+      max-width: 400px;
+      line-height: 1.6;
+    }
+    .contact-phones {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      margin-bottom: 16px;
+    }
+    .contact-phone {
+      font-size: 1.3rem;
+      color: #e8f0e3;
+      text-decoration: none;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .contact-phone i {
+      color: #a3c09b;
+      font-size: 1rem;
+    }
+    .contact-phone-secondary {
+      font-size: 1.1rem;
+      opacity: 0.8;
+    }
+    .contact-phone-label {
+      font-size: 0.75rem;
+      color: #8a9a7b;
+      background: #f0f4ed;
+      padding: 2px 8px;
+      border-radius: 10px;
+      margin-left: 4px;
+    }
+    .contact-email {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      color: #a3c09b;
+      text-decoration: none;
+      font-size: 1.05rem;
+      margin-bottom: 12px;
+    }
+    .contact-email i {
+      color: #a3c09b;
+    }
+    .contact-email:hover {
+      text-decoration: underline;
+    }
+    .telegram-link {
+      font-size: 1.2rem;
+      color: #a3c09b;
+      text-decoration: none;
+      display: inline-block;
+      border-bottom: 1px solid rgba(163, 192, 155, 0.5);
+      transition: border-color 0.2s;
+    }
+    .telegram-link:hover {
+      border-color: #8ba888;
+    }
+    .contact-right {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-end;
+    }
+    .contact-icon {
+      font-size: 4rem;
+      opacity: 0.15;
+      margin-bottom: 16px;
+    }
+    .contact-discuss-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 1rem;
+      font-weight: 500;
+      color: #a3c09b;
+      text-decoration: none;
+      border-bottom: 1px solid transparent;
+      transition: border-color 0.2s, color 0.2s;
+    }
+    .contact-discuss-link:hover {
+      border-color: #8ba888;
+      color: #ffffff;
+    }
+    .contact-discuss-link i {
+      font-size: 0.9rem;
+      transition: transform 0.2s;
+    }
+    .contact-discuss-link:hover i {
+      transform: translateX(4px);
+    }
+
+    /* Футер */
+    .footer {
+      background: #151a16;
+      padding: 28px 0;
+      border-top: 1px solid rgba(255, 255, 255, 0.08);
+    }
+    .footer-inner {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: nowrap;
+      gap: 16px;
+    }
+    .footer-copy {
+      color: #b0bcae;
+      font-size: 0.95rem;
+      margin: 0;
+    }
+    .footer-top {
+      color: #b0bcae;
+      text-decoration: none;
+      font-size: 1.2rem;
+      transition: color 0.3s ease;
+    }
+    .footer-top:hover {
+      color: #ffffff;
+    }
+
+    /* Адаптация */
+    @media (max-width: 900px) {
+      .gallery-masonry {
+        column-count: 2;
+      }
+    }
+    @media (max-width: 600px) {
+      .gallery-masonry {
+        column-count: 1;
+      }
+      .works-banner {
+        height: 250px;
+      }
+      .works-banner h1 {
+        font-size: 2rem;
+      }
+      .nav-links {
+        display: none;
+      }
+      .burger {
+        display: flex;
+      }
+      .lightbox-close {
+        top: 15px;
+        right: 20px;
+        font-size: 2rem;
+      }
+    }
+    @media (max-width: 400px) {
+      .works-banner h1 {
+        font-size: 1.6rem;
+      }
+    }
+  </style>
+</head>
+<body>
+
+<header id="mainHeader">
+  <div class="header-content">
+    <a href="/" class="logo">
+      <img src="/logo.png" alt="Логотип"> mr. Green
+    </a>
+    
+    <button class="burger" id="burger" aria-label="Открыть меню">
+      <span></span>
+      <span></span>
+      <span></span>
+    </button>
+
+    <nav class="mobile-nav" id="mobileMenu">
+      <a href="/">Главная</a>
+      <a href="/uslugi">Услуги</a>
+      <a href="/works" style="color:#a3c09b;">Работы</a>
+      <a href="#contact">Контакты</a>
+    </nav>
+
+    <nav class="nav-links">
+      <a href="/">Главная</a>
+      <a href="/uslugi">Услуги</a>
+      <a href="/works" class="active">Работы</a>
+      <a href="#contact">Контакты</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+  <!-- Баннер -->
+  <div class="works-banner" style="background-image: url('44.jpg');">
+    <h1>Наши проекты — живое воплощение стиля</h1>
+  </div>
+
+  <!-- Галерея -->
+  <section class="gallery">
+    <div class="container">
+      <div class="gallery-masonry" id="galleryContainer">
+        <!-- Элементы галереи будут добавлены через JS -->
+      </div>
+    </div>
+  </section>
+
+  <!-- Контакты -->
+  <section class="contact" id="contact">
+    <div class="container contact-grid">
+      <div class="contact-left">
+        <p class="contact-subtitle">Мы слышим ваши желания и переводим их на язык сада.</p>
+        <div class="contact-phones">
+          <a href="tel:+79011111107" class="contact-phone">
+            <i class="fas fa-phone"></i> +7 (901) 111-11-07
+          </a>
+          <a href="tel:+79096642117" class="contact-phone contact-phone-secondary">
+            <i class="fas fa-phone"></i> +7 (909) 664-21-17
+            <span class="contact-phone-label">доп</span>
+          </a>
+        </div>
+        <a href="mailto:rammoris1985@gmail.com" class="contact-email">
+          <i class="fas fa-envelope"></i> rammoris1985@gmail.com
+        </a>
+        <a href="https://t.me/yrVnvVHtJsA2Mjcy" target="_blank" class="telegram-link">
+          <i class="fab fa-telegram-plane"></i> @mrgreenchatt
+        </a>
+      </div>
+      <div class="contact-right">
+        <div class="contact-icon"></div>
+        <a href="https://t.me/mrgreenchatt" class="contact-discuss-link">
+          Обсудить проект <i class="fas fa-arrow-right"></i>
+        </a>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer class="footer">
+  <div class="container footer-inner">
+    <p class="footer-copy">© 2002 mr. Green. Ландшафтная архитектура по законам эстетики</p>
+    <a href="#" class="footer-top" aria-label="Наверх">
+      <i class="fas fa-arrow-up"></i>
+    </a>
+  </div>
+</footer>
+
+<!-- Лайтбокс -->
+<div class="lightbox" id="lightbox">
+  <span class="lightbox-close" id="lightboxClose">&times;</span>
+  <img src="" alt="Увеличенное фото" class="lightbox-img" id="lightboxImg">
+</div>
+
+<script>
+  // --- ГЕНЕРАЦИЯ ФОТОГРАФИЙ ---
+  const gallery = document.getElementById('galleryContainer');
+  const totalImages = 46;
+  const imagePath = 'photo/';
+  const imageExt = '.jpg';
+
+  for (let i = 1; i <= totalImages; i++) {
+    const item = document.createElement('div');
+    item.className = 'gallery-item';
+    const img = document.createElement('img');
+    img.src = imagePath + i + imageExt;
+    img.alt = 'Работа ' + i;
+    img.loading = 'lazy';
+    item.appendChild(img);
+    gallery.appendChild(item);
+  }
+
+  // --- АНИМАЦИЯ ПОЯВЛЕНИЯ ПРИ СКРОЛЛЕ ---
+  const items = document.querySelectorAll('.gallery-item');
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.15 });
+
+  items.forEach(item => observer.observe(item));
+
+  // --- ЛАЙТБОКС ---
+  const lightbox = document.getElementById('lightbox');
+  const lightboxImg = document.getElementById('lightboxImg');
+  const lightboxClose = document.getElementById('lightboxClose');
+
+  function openLightbox(src) {
+    lightboxImg.src = src;
+    lightbox.classList.add('active');
+  }
+
+  function closeLightbox() {
+    lightbox.classList.remove('active');
+    lightboxImg.src = ''; // очищаем
+  }
+
+  // Вешаем обработчики на все существующие и будущие gallery-item через делегирование
+  gallery.addEventListener('click', function(e) {
+    const target = e.target.closest('.gallery-item');
+    if (!target) return;
+    const img = target.querySelector('img');
+    if (img && img.src) {
+      openLightbox(img.src);
+    }
+  });
+
+  // Закрытие по крестику
+  lightboxClose.addEventListener('click', closeLightbox);
+
+  // Закрытие по клику на фон (сам lightbox)
+  lightbox.addEventListener('click', function(e) {
+    if (e.target === lightbox) {
+      closeLightbox();
+    }
+  });
+
+  // Закрытие по клавише Esc
+  document.addEventListener('keydown', function(e) {
+    if (e.key === 'Escape' && lightbox.classList.contains('active')) {
+      closeLightbox();
+    }
+  });
+
+  // --- ХЕДЕР И МЕНЮ ---
+  var header = document.getElementById('mainHeader');
+  window.addEventListener('scroll', function() {
+    if (window.scrollY > 50) {
+      header.classList.add('scrolled');
+    } else {
+      header.classList.remove('scrolled');
+    }
+  });
+
+  var burger = document.getElementById('burger');
+  var mobileMenu = document.getElementById('mobileMenu');
+  burger.addEventListener('click', function() {
+    burger.classList.toggle('open');
+    mobileMenu.classList.toggle('open');
+  });
+  var mobileLinks = document.querySelectorAll('.mobile-nav a');
+  for (var j = 0; j < mobileLinks.length; j++) {
+    mobileLinks[j].addEventListener('click', function() {
+      burger.classList.remove('open');
+      mobileMenu.classList.remove('open');
+    });
+  }
+
+  // --- ПЛАВНЫЙ СКРОЛЛ ---
+  var anchors = document.querySelectorAll('a[href^="#"]');
+  for (var k = 0; k < anchors.length; k++) {
+    anchors[k].addEventListener('click', function(e) {
+      e.preventDefault();
+      var href = this.getAttribute('href');
+      if (href === '#') {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      } else {
+        var target = document.querySelector(href);
+        if (target) target.scrollIntoView({ behavior: 'smooth' });
+      }
+    });
+  }
+</script>
+</body>
+</html>

@@ -225,6 +225,7 @@
     .service-text .subtitle {
       font-size: 1.15rem;
       color: #b0bcae;
+       margin-top: 20px;
       margin-bottom: 32px;
       line-height: 1.6;
     }
@@ -271,13 +272,57 @@
       max-width: 400px;
       line-height: 1.6;
     }
+        .contact-phones {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      margin-bottom: 16px;
+    }
+    
     .contact-phone {
-      font-size: 1.6rem;
-      font-weight: 600;
-      color: #ffffff;
+      font-size: 1.3rem;
+      color: #e8f0e3;
       text-decoration: none;
-      display: block;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    
+    .contact-phone i {
+      color: #a3c09b;
+      font-size: 1rem;
+    }
+    
+    .contact-phone-secondary {
+      font-size: 1.1rem;
+      opacity: 0.8;
+    }
+    
+    .contact-phone-label {
+      font-size: 0.75rem;
+      color: #8a9a7b;
+      background: #f0f4ed;
+      padding: 2px 8px;
+      border-radius: 10px;
+      margin-left: 4px;
+    }
+    
+    .contact-email {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      color: #a3c09b;
+      text-decoration: none;
+      font-size: 1.05rem;
       margin-bottom: 12px;
+    }
+    
+    .contact-email i {
+      color: #a3c09b;
+    }
+    
+    .contact-email:hover {
+      text-decoration: underline;
     }
     .telegram-link {
       font-size: 1.2rem;
@@ -349,35 +394,6 @@
     }
     .footer-top:hover {
       color: #ffffff;
-    }
-
-    /* Кнопка музыки */
-    .music-toggle {
-      position: fixed;
-      bottom: 24px;
-      right: 24px;
-      width: 48px;
-      height: 48px;
-      border-radius: 50%;
-      background: rgba(255, 255, 255, 0.15);
-      backdrop-filter: blur(8px);
-      border: 1px solid rgba(255, 255, 255, 0.25);
-      color: #fff;
-      font-size: 1.3rem;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      cursor: pointer;
-      z-index: 999;
-      transition: background 0.2s, transform 0.2s;
-    }
-    .music-toggle:hover {
-      background: rgba(255, 255, 255, 0.25);
-      transform: scale(1.1);
-    }
-    .music-toggle.playing {
-      background: rgba(163, 192, 155, 0.3);
-      border-color: rgba(163, 192, 155, 0.6);
     }
 
     /* Адаптация */
@@ -455,6 +471,7 @@
     <nav class="nav-links">
       <a href="/">Главная</a>
       <a href="/uslugi" class="active">Услуги</a>
+      <a href="/works">Работы</a>
       <a href="#contact">Контакты</a>
     </nav>
   </div>
@@ -468,6 +485,26 @@
     <span class="banner-sub">- Создаём сады, которыми гордимся вместе с вами</span>
   </h1>
   </div>
+
+    <!-- Предпроектная подготовка -->
+  <section id="proektirovanie">
+    <div class="container">
+      <div class="service-block">
+        <div class="service-img" style="background-image: url('/consultation.jpg');"></div>
+        <div class="service-text">
+          <h2>Предпроектная подготовка</h2>
+          <p class="subtitle">Выезд специалистов на объект, сбор необходимой информации, составление технического задания</p>
+          <ul>
+            <li><i class="fas fa-check-circle"></i> Предварительный осмотр и обмер участка - специалист оценит территорию, чтобы рассчитать примерную стоимость работ</li>
+            <li><i class="fas fa-check-circle"></i> Разработка плана благоустройства - подскажем, с чего начать и как завершить процесс. Это поможет избежать ошибок, сэкономить время и финансы</li>
+            <li><i class="fas fa-check-circle"></i>  Рекомендации по растениям - какие лучше сажать, где именно, какие требуют минимального ухода, а какие — большего внимания</li>
+            <li><i class="fas fa-check-circle"></i> Экономия ресурсов — наши советы помогут избежать неверных расчетов, непредвиденных трат и получить идеальный результат в срок!</li>
+          </ul>
+           <p class="subtitle">Стоимость консультации от 3 000₽</p>
+        </div>
+      </div>
+    </div>
+  </section>
 
   <!-- Проектирование -->
   <section id="proektirovanie">
@@ -546,23 +583,38 @@
   </section>
 
   <!-- Контакты -->
-  <section class="contact" id="contact">
-    <div class="container contact-grid">
-      <div class="contact-left">
-        <p class="contact-subtitle">Мы слышим ваши желания и переводим их на язык сада.</p>
-        <a href="tel:+79011111107" class="contact-phone">+7 (901) 111-11-07</a>
-        <a href="https://t.me/yrVnvVHtJsA2Mjcy" target="_blank" class="telegram-link">
-          <i class="fab fa-telegram-plane"></i> @mrgreenchatt
+   <section class="contact" id="contact">
+  <div class="container contact-grid">
+    <div class="contact-left">
+      <p class="contact-subtitle">Мы слышим ваши желания и переводим их на язык сада.</p>
+      
+      <div class="contact-phones">
+        <a href="tel:+79011111107" class="contact-phone">
+          <i class="fas fa-phone"></i> +7 (901) 111-11-07
+        </a>
+        <a href="tel:+79096642117" class="contact-phone contact-phone-secondary">
+          <i class="fas fa-phone"></i> +7 (909) 664-21-17
+          <span class="contact-phone-label">доп</span>
         </a>
       </div>
-      <div class="contact-right">
-        <div class="contact-icon"><i class="fas fa-leaf"></i></div>
-        <a href="https://t.me/mrgreenchatt" class="contact-discuss-link">
-          Обсудить проект <i class="fas fa-arrow-right"></i>
-        </a>
-      </div>
+      
+      <a href="mailto:rammoris1985@gmail.com" class="contact-email">
+        <i class="fas fa-envelope"></i> rammoris1985@gmail.com
+      </a>
+      
+      <a href="https://t.me/yrVnvVHtJsA2Mjcy" target="_blank" class="telegram-link">
+        <i class="fab fa-telegram-plane"></i> @mrgreenchatt
+      </a>
     </div>
-  </section>
+    
+    <div class="contact-right">
+      <div class="contact-icon"></div>
+      <a href="https://t.me/mrgreenchatt" class="contact-discuss-link">
+        Обсудить проект <i class="fas fa-arrow-right"></i>
+      </a>
+    </div>
+  </div>
+</section>
 </main>
 
 <footer class="footer">
@@ -573,14 +625,6 @@
     </a>
   </div>
 </footer>
-
-<audio id="bgMusic" loop preload="auto">
-  <source src="ambient.mp3" type="audio/mpeg">
-</audio>
-
-<button id="musicControl" class="music-toggle" aria-label="Включить музыку" title="Фоновая музыка">
-  <i class="fas fa-volume-mute"></i>
-</button>
 
 <script>
   // Скролл хедера
@@ -622,44 +666,6 @@
       }
     });
   }
-
-  // Музыка
-  var bgMusic = document.getElementById('bgMusic');
-  var musicBtn = document.getElementById('musicControl');
-  var musicIcon = musicBtn.querySelector('i');
-
-  function startMusic() {
-    bgMusic.play().then(function() {
-      musicBtn.classList.add('playing');
-      musicIcon.className = 'fas fa-volume-up';
-      musicBtn.setAttribute('aria-label', 'Выключить музыку');
-    }).catch(function() {});
-  }
-
-  window.addEventListener('load', startMusic);
-
-  musicBtn.addEventListener('click', function() {
-    if (bgMusic.paused) {
-      bgMusic.play().then(function() {
-        musicBtn.classList.add('playing');
-        musicIcon.className = 'fas fa-volume-up';
-      });
-    } else {
-      bgMusic.pause();
-      musicBtn.classList.remove('playing');
-      musicIcon.className = 'fas fa-volume-mute';
-    }
-  });
-
-  document.addEventListener('click', function firstInteraction() {
-    if (bgMusic.paused) {
-      bgMusic.play().then(function() {
-        musicBtn.classList.add('playing');
-        musicIcon.className = 'fas fa-volume-up';
-      }).catch(function() {});
-    }
-    document.removeEventListener('click', firstInteraction);
-  }, { once: true });
 </script>
 </body>
 </html>
