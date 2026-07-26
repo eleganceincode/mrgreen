@@ -725,6 +725,18 @@
       max-width: none;
     }
 
+    /* === ОБРЕЗКА ВИДЕО НА МОБИЛЬНЫХ (скрываем верхнюю четверть) === */
+    @media (max-width: 768px) {
+      .hero video {
+        position: absolute;
+        top: -25%;          /* смещаем вверх, чтобы верхняя часть оказалась за пределами */
+        left: 0;
+        width: 100%;
+        height: 125%;       /* увеличиваем высоту, чтобы нижняя часть заполнила контейнер */
+        object-fit: cover;  /* сохраняем пропорции */
+      }
+    }
+
     /* Кнопка управления музыкой */
     .music-toggle {
       position: fixed;
@@ -841,27 +853,27 @@
   <section class="works" id="works">
     <div class="container">
       <h2 style="text-align:center; font-family:'Playfair Display'; font-size:2rem; margin-bottom:80px;">
-        Наши сады — это не просто растения. Это инженерная поэзия, где каждая линия рождена мыслью, а каждый уголок дарит счастье.
+        Наши сады - это не просто растения. Это инженерная поэзия, где каждая линия рождена мыслью, а каждый уголок дарит счастье.
       </h2>
       <div class="work-block">
         <div class="work-img" style="background-image: url('yard.jpg');"></div>
         <div class="work-text">
           <h3>Уютный сад</h3>
-          <p>Сочетание многолетников и натурального камня — идеальное место для отдыха.</p>
+          <p>Сочетание многолетников и натурального камня - идеальное место для отдыха</p>
         </div>
       </div>
       <div class="work-block">
         <div class="work-img" style="background-image: url('pond.jpg');"></div>
         <div class="work-text">
           <h3>Современный пруд</h3>
-          <p>Зеркальная гладь воды в окружении хвойных растений.</p>
+          <p>Зеркальная гладь воды в окружении хвойных растений</p>
         </div>
       </div>
       <div class="work-block">
         <div class="work-img" style="background-image: url('terrace.jpg');"></div>
         <div class="work-text">
           <h3>Терраса с растениями</h3>
-          <p>Пространство для вечерних встреч с друзьями.</p>
+          <p>Пространство для вечерних встреч с друзьями</p>
         </div>
       </div>
     </div>
@@ -870,7 +882,7 @@
  <section class="contact" id="contact">
   <div class="container contact-grid">
     <div class="contact-left">
-      <p class="contact-subtitle">Мы слышим ваши желания и переводим их на язык сада.</p>
+      <p class="contact-subtitle">Мы слышим ваши желания и переводим их на язык сада</p>
       
       <div class="contact-phones">
         <a href="tel:+79011111107" class="contact-phone">
@@ -886,8 +898,12 @@
         <i class="fas fa-envelope"></i> rammoris1985@gmail.com
       </a>
       
-      <a href="https://t.me/yrVnvVHtJsA2Mjcy" target="_blank" class="telegram-link">
-        <i class="fab fa-telegram-plane"></i> @mrgreenchatt
+      <a href="https://t.me/mrgreenchanel" target="_blank" class="telegram-link">
+        <i class="fab fa-telegram-plane"></i> @mrgreenchanel
+      </a>
+      <div style="margin-top: 8px;"></div>
+      <a href="https://t.me/mrgreenchatt" target="_blank" class="telegram-link">
+        <i class="fab fa-telegram-plane"></i> @mrgreenchat
       </a>
     </div>
     
