@@ -17,6 +17,12 @@
       color: #ffffff;
       overflow-x: hidden;
     }
+    /* Добавим класс для блокировки прокрутки при открытом лайтбоксе */
+    body.no-scroll {
+      overflow: hidden;
+      position: fixed; /* предотвращает прокрутку на iOS */
+      width: 100%;
+    }
 
     .container {
       max-width: 1200px;
@@ -252,7 +258,7 @@
       object-fit: contain;
       border-radius: 8px;
       box-shadow: 0 20px 40px rgba(0,0,0,0.6);
-      transition: transform 0.2s ease; /* для плавного закрытия свайпом при желании */
+      transition: transform 0.2s ease;
     }
 
     .lightbox-close {
@@ -414,12 +420,11 @@
     /* Адаптация */
     @media (max-width: 900px) {
       .gallery-masonry {
-        column-count: 2;   /* две колонки на планшетах и телефонах */
+        column-count: 2;
       }
     }
 
     @media (max-width: 600px) {
-      /* оставляем 2 колонки, просто подправляем высоту баннера и меню */
       .works-banner {
         height: 250px;
       }
@@ -443,7 +448,6 @@
       .works-banner h1 {
         font-size: 1.6rem;
       }
-      /* на очень маленьких экранах всё ещё две колонки */
     }
   </style>
 </head>
@@ -579,15 +583,18 @@
   const lightbox = document.getElementById('lightbox');
   const lightboxImg = document.getElementById('lightboxImg');
   const lightboxClose = document.getElementById('lightboxClose');
+  const body = document.body;
 
   function openLightbox(src) {
     lightboxImg.src = src;
     lightbox.classList.add('active');
+    body.classList.add('no-scroll'); // блокируем прокрутку
   }
 
   function closeLightbox() {
     lightbox.classList.remove('active');
     lightboxImg.src = '';
+    body.classList.remove('no-scroll'); // возвращаем прокрутку
   }
 
   // Открытие по клику на карточку
@@ -617,12 +624,19 @@
     }
   });
 
-  // --- ЗАКРЫТИЕ СВАЙПОМ (мобильные) ---
+  // --- ЗАКРЫТИЕ СВАЙПОМ (мобильные) с блокировкой прокрутки фона ---
   let touchStartY = 0;
 
   lightbox.addEventListener('touchstart', function(e) {
+    // предотвращаем прокрутку фона при касании внутри лайтбокса
+    e.preventDefault();
     touchStartY = e.touches[0].clientY;
-  }, {passive: true});
+  }, {passive: false});  // passive: false чтобы e.preventDefault() сработал
+
+  lightbox.addEventListener('touchmove', function(e) {
+    // блокируем любое движение во время лайтбокса (чтобы не скроллилось за ним)
+    e.preventDefault();
+  }, {passive: false});
 
   lightbox.addEventListener('touchend', function(e) {
     if (!lightbox.classList.contains('active')) return;
@@ -632,7 +646,6 @@
     if (Math.abs(diffY) > 50) {
       closeLightbox();
     }
-    // Если движение маленькое, может сработать обычный клик по фону
   });
 
   // --- ХЕДЕР И МЕНЮ ---
