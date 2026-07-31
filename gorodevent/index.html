@@ -2,7 +2,7 @@
 <html lang="ru">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes, viewport-fit=cover">
     <title>ГОРОД — Закрытая VIP вечеринка | Барабаны & Диджеи</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -169,7 +169,6 @@
             .partners { gap: 28px; }
             .features-grid { grid-template-columns: repeat(2, 1fr); }
             .map-container iframe { height: 280px; }
-            /* лайнап на планшетах: по две карточки */
             .lineup-grid { gap: 20px; }
             .artist-card { flex: 0 0 calc(50% - 20px); max-width: none; }
         }
@@ -182,10 +181,117 @@
             .logo { font-size: 1.2rem; }
             .location-gallery { grid-template-columns: 1fr; gap: 12px; }
             .gallery-img { height: 220px; }
-            .features-grid { grid-template-columns: 1fr 1fr; }
+            .features-grid { grid-template-columns: 1fr 1fr; gap: 12px; }
             .map-container iframe { height: 240px; }
             .lineup-grid { gap: 12px; }
             .artist-card { flex: 0 0 calc(50% - 12px); }
+
+            /* Новые правки для компактности и устранения обрезания */
+            .format-badge {
+                padding: 10px 18px;
+                font-size: 0.9rem;
+                letter-spacing: 0.03em;
+                white-space: nowrap;
+            }
+            .container {
+                padding: 0 16px;
+            }
+            .content-z {
+                padding: 60px 0;
+            }
+            /* Welcome карточки – делаем квадратными и без обрезания */
+            .feature-item {
+                padding: 20px 10px;
+                aspect-ratio: 1 / 1;
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+                word-break: break-word;
+            }
+            .feature-item h4 {
+                font-size: 1rem;
+            }
+            .feature-item p {
+                font-size: 0.75rem;
+            }
+            .feature-icon {
+                font-size: 1.8rem;
+                margin-bottom: 10px;
+            }
+            /* Карточки диджеев — тоже квадратные */
+            .artist-card {
+                aspect-ratio: 1 / 1;
+                padding: 20px 10px;
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+            }
+            .artist-icon {
+                font-size: 2.4rem;
+                margin-bottom: 12px;
+            }
+            .artist-card h3 {
+                font-size: 1.3rem;
+            }
+            /* Блок ниже диджеев: делаем поуже */
+            .dresscode-box {
+                padding: 20px 18px;
+                margin-left: auto;
+                margin-right: auto;
+                width: fit-content;
+                max-width: 90vw;
+            }
+            .location-info {
+                padding: 20px 18px;
+                margin-left: auto;
+                margin-right: auto;
+                max-width: 90vw;
+                display: block;
+                width: fit-content;
+            }
+            .location-address {
+                font-size: 1rem;
+            }
+            .ticket-card {
+                padding: 28px 18px;
+                margin-left: auto;
+                margin-right: auto;
+                max-width: 92vw;
+            }
+            /* Блок подтверждения — убираем жёсткий отступ */
+            .ticket-card div[style*="margin-left: 120px"] {
+                margin-left: 0 !important;
+                margin-right: 0 !important;
+                text-align: center !important;
+                display: block !important;
+            }
+            .ticket-card div[style*="margin-left: 120px"] p {
+                margin-left: 0 !important;
+                padding-right: 0 !important;
+            }
+            /* Кнопка оплаты */
+            .btn {
+                padding: 14px 24px;
+                font-size: 0.9rem;
+            }
+            /* Футер: выравнивание по центру */
+            .footer-inner {
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+                text-align: center;
+                gap: 12px;
+            }
+            .footer-copy, .footer-dev {
+                text-align: center;
+                width: 100%;
+            }
+            .section-subtitle {
+                margin-bottom: 32px;
+                font-size: 0.95rem;
+            }
         }
     </style>
 </head>
